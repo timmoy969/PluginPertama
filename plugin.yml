@@ -1,0 +1,11 @@
+name: PluginPertama
+version: 1.0
+main: com.info.Main
+api-version: 1.20
+author: NamaAnda
+description: Plugin pertama saya yang dibuat lewat HP!
+
+commands:
+  halo:
+    description: Menampilkan pesan salam dari plugin.
+    usage: /halo

@@ -23,16 +23,16 @@ jobs:
       run: |
         mkdir -p build/classes
         
-        # Mengunduh library kompilasi lewat repositori Maven pusat resmi yang diizinkan oleh GitHub
-        mvn dependency:get -Dartifact=org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT -DremoteRepositories=https://spigotmc.org -Dtransitive=false
+        # Mengunduh Bukkit API dari repositori Maven Central resmi (dijamin ada dan aman)
+        mvn dependency:get -Dartifact=org.bukkit:bukkit:1.16.5-R0.1-SNAPSHOT -DremoteRepositories=https://apache.org -Dtransitive=false
         
-        # Menyalin file yang berhasil diunduh dengan aman ke direktori kerja
-        cp ~/.m2/repository/org/spigotmc/spigot-api/1.20.4-R0.1-SNAPSHOT/spigot-api-*.jar ./spigot.jar
+        # Menyalin file library yang terunduh ke direktori lokal
+        cp ~/.m2/repository/org/bukkit/bukkit/1.16.5-R0.1-SNAPSHOT/bukkit-1.16.5-R0.1-SNAPSHOT.jar ./spigot.jar
         
-        # Menjalankan proses kompilasi kode Java
+        # Kompilasi kode Java
         javac -d build/classes -cp spigot.jar src/com/info/Main.java
         
-        # Mengemas paket aplikasi menjadi file JAR final
+        # Pengemasan menjadi file JAR final
         cp plugin.yml build/classes/
         cd build/classes
         jar cf ../../PluginPertama.jar .

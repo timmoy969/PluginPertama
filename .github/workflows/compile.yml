@@ -21,19 +21,18 @@ jobs:
 
     - name: Compile Java Files
       run: |
-        # Memastikan file spigot.jar lama yang rusak dihapus total dari cache
-        rm -f spigot.jar
-        
-        # Membuat folder tujuan kompilasi
         mkdir -p build/classes
         
-        # Mengunduh Paper API baru menggunakan wget yang lebih stabil
-        wget -q "https://papermc.io" -O spigot.jar
+        # Mengunduh library kompilasi lewat repositori Maven pusat resmi yang diizinkan oleh GitHub
+        mvn dependency:get -Dartifact=org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT -DremoteRepositories=https://spigotmc.org -Dtransitive=false
         
-        # Kompilasi file Java
+        # Menyalin file yang berhasil diunduh dengan aman ke direktori kerja
+        cp ~/.m2/repository/org/spigotmc/spigot-api/1.20.4-R0.1-SNAPSHOT/spigot-api-*.jar ./spigot.jar
+        
+        # Menjalankan proses kompilasi kode Java
         javac -d build/classes -cp spigot.jar src/com/info/Main.java
         
-        # Memasukkan berkas konfigurasi ke dalam plugin
+        # Mengemas paket aplikasi menjadi file JAR final
         cp plugin.yml build/classes/
         cd build/classes
         jar cf ../../PluginPertama.jar .

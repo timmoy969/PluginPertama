@@ -21,10 +21,19 @@ jobs:
 
     - name: Compile Java Files
       run: |
+        # Memastikan file spigot.jar lama yang rusak dihapus total dari cache
+        rm -f spigot.jar
+        
+        # Membuat folder tujuan kompilasi
         mkdir -p build/classes
-        # Mengunduh Paper API 1.20.4 resmi yang bebas blokir Cloudflare
-        curl -sL "https://papermc.io" -o spigot.jar
+        
+        # Mengunduh Paper API baru menggunakan wget yang lebih stabil
+        wget -q "https://papermc.io" -O spigot.jar
+        
+        # Kompilasi file Java
         javac -d build/classes -cp spigot.jar src/com/info/Main.java
+        
+        # Memasukkan berkas konfigurasi ke dalam plugin
         cp plugin.yml build/classes/
         cd build/classes
         jar cf ../../PluginPertama.jar .

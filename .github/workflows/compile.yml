@@ -22,8 +22,8 @@ jobs:
     - name: Compile Java Files
       run: |
         mkdir -p build/classes
-        # Mengunduh Spigot API 1.20.4 resmi dari repo Maven Hub SpigotMC
-        curl -sL "https://spigotmc.org" -o spigot.jar
+        # Mengunduh Paper API 1.20.4 resmi yang bebas blokir Cloudflare
+        curl -sL "https://papermc.io" -o spigot.jar
         javac -d build/classes -cp spigot.jar src/com/info/Main.java
         cp plugin.yml build/classes/
         cd build/classes
